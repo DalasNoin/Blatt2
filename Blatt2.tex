@@ -1,0 +1,43 @@
+\documentclass[11pt]{scrartcl}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{svg}
+\usepackage{amsmath}
+\usepackage{import}
+
+\title{Lösung Blatt 2}
+\author{Gruppe Leibniz}
+
+\begin{document}
+\maketitle
+
+\section{Automated Encounter Detection for Animal-Borne Sensor Nodes}
+\subsection{Warum ist es wichtig, den Prozess der Aufzeichnung möglichst zu automatisieren und zusätz-
+lich die Sensoren hinreichend klein und unaufdringlich zu entwerfen?}
+Tiere können ihr Verhalten in Anwesenheit von Menschen ändern, denn sie werden als Störung oder Gefahr wahrgenommen.
+Fledermäuse sind kleine Tiere, der Sensorknoten soll sie nicht am Flug oder ihrem natürlichen Verhalten hindern. In dem Paper wird eine Art betrachtet, die im Durchschnitt nur 20g wiegt, der Sensor sollte maximal 5-10\% dessen wiegen.
+\subsection{Diskutieren Sie bitte in maximal zehn Sätzen, welche Maßnahmen die Autoren getroffen haben,
+um die Datenerfassung möglichst energieeffizient zu gestalten.}
+Die Software folgt einem Betriebszyklus, der Transceiver ist die meiste Zeit abgeschaltet. Ein DC-DC-Wandler wird ebenfalls im Ruhezustand abgeschaltet. Ein Accelerometer wird eingesetzt um zu bestimmen, ob das Tier kopfüber hängt, in solchen Fällen kann davon ausgegangen werden, dass das Tier schläft. In diesem Fall kann das System mit einer reduzierten Rate ausgeführt werden. Der Microcontroller Cortex M0+ KL05 von NXP verbraucht sehr wenig Strom im Ruhezustand und beherrscht Event-basierte Ausführung. Dieser Controller hat einen eigenen Low-Power-Oszillator zur Zeitverfolgung.
+Der Sensorknoten hat außerdem einen Wake-up Receiver(WuRx), dieser macht es möglich den Transceiver abzuschalten. Empfängt der WuRx eine Wakeup-Sequenz, schaltet sich der Knoten in den Betriebszustand und der Transceiver kann Signale empfangen.
+Die Hardwarekomponenten wurden möglichst energieeffizient gewählt, mit geringem Ruhestrom.
+
+\subsection{Was ist Clock-Drift (Uhrenfehler), warum ist er ein Problem in diesem Szenario und wie begeg-
+nen ihm die Autoren?}
+
+Der Low-Power-Oszillator des Microcontrollers ist weniger genau als ein normaler Oszilator in der Zeitverfolgung. Die Zeit ist um $\pm10\%$ verfälscht, das führt zu einer maximalen Zeitverschiebung zwischen zwei Knoten von $\pm20\%$. Dieses Problem wird durch Time-Updates gelöst, wenn die Fledermaus in Reichweite einer Basisstation kommt.
+
+\subsection{Bitte nennen und beschreiben Sie zwei vorgestellte Konzepte, die den Selbst-x-Eigenschaften
+aus dem Organic Computing zuzuordnen sind, und stellen Sie die Verbindung dazu her.}
+Selbstoptimierung, Selbstkonfiguration, Selbstheilung und Selbstschutz
+\subsection{Beschreiben Sie in maximal fünf Sätzen den Ablauf der Erkennung des Aufeinandertreffens
+von Fledermäusen und wie dessen Ende erkannt werden kann? Welche Probleme treten hierbei
+auf?}
+Das Paper beschreibt den Ablauf für ein vereinfachtes Szenario und verweisst auf ein anderes Paper für eine genaue Beschreibung.
+
+Zwei Mobile Nodes(MN) sind an zwei Fledermäusen angebracht mit den Identifikationsnummern(ID) 1 und 2. Die MN senden ihre IDs periodisch aus mit der Reichweite 10m. Nähern sich die Tiere auf diesen Radius an, empfangen sie gegenseitig ihr Signal und eine Meeting-Datenstruktur wird angelegt oder aktualisiert
+
+\end{document}
