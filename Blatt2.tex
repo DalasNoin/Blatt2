@@ -25,14 +25,15 @@ Die Software folgt einem Betriebszyklus, der Transceiver ist die meiste Zeit abg
 Der Sensorknoten hat außerdem einen Wake-up Receiver(WuRx), dieser macht es möglich den Transceiver abzuschalten. Empfängt der WuRx eine Wakeup-Sequenz, schaltet sich der Knoten in den Betriebszustand und der Transceiver kann Signale empfangen.
 Die Hardwarekomponenten wurden möglichst energieeffizient gewählt, mit geringem Ruhestrom.
 
-\subsection{Was ist Clock-Drift (Uhrenfehler), warum ist er ein Problem in diesem Szenario und wie begeg-
-nen ihm die Autoren?}
+\subsection{Was ist Clock-Drift (Uhrenfehler), warum ist er ein Problem in diesem Szenario und wie begegnen ihm die Autoren?}
 
 Der Low-Power-Oszillator des Microcontrollers ist weniger genau als ein normaler Oszilator in der Zeitverfolgung. Die Zeit ist um $\pm10\%$ verfälscht, das führt zu einer maximalen Zeitverschiebung zwischen zwei Knoten von $\pm20\%$. Dieses Problem wird durch Time-Updates gelöst, wenn die Fledermaus in Reichweite einer Basisstation kommt.
 
 \subsection{Bitte nennen und beschreiben Sie zwei vorgestellte Konzepte, die den Selbst-x-Eigenschaften
 aus dem Organic Computing zuzuordnen sind, und stellen Sie die Verbindung dazu her.}
-Selbstoptimierung, Selbstkonfiguration, Selbstheilung und Selbstschutz
+
+Die Sensorknoten aktualisieren ihre interne Zeit wenn sie die entsprechenden Informationspakete von der Basisstation erhalten, der interne Fehler muss durch eine Selbstheilung behoben werden.
+Paramter wie RSSI-Thresholds, Timeouts und Sample-Rates müssen selbstoptimiert werden. Dazu wird ein Configuration-Handler implementiert.
 \subsection{Beschreiben Sie in maximal fünf Sätzen den Ablauf der Erkennung des Aufeinandertreffens
 von Fledermäusen und wie dessen Ende erkannt werden kann? Welche Probleme treten hierbei
 auf?}
